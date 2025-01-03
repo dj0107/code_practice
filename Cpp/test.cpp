@@ -2,9 +2,7 @@
 using namespace std;
 
 int main() {
-    int a = 10;
-    int b = 3; 
-    int c = a + b;
-
-    cout << c + b / a << endl;
+    long long a = 3000000000;
+    int b = 3;
+    cout << a * b;
 }
