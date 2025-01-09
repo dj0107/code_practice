@@ -2,7 +2,10 @@
 using namespace std;
 
 int main() {
-    long long a = 3000000000;
-    int b = 3;
-    cout << a * b;
+    int a = 3;
+    int b = 0;
+    if(false && a / b == 0)
+    {
+        cout << "asdf";
+    }
 }
