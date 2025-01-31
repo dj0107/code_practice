@@ -1,25 +1,66 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 int main()
 {
     string S;
     cin >> S;
-    int len = S.length();
-    int numOfspaces = 0; //돌 사이에 빈 공간의 수(두 돌 사이에 빈 공간이 2개 있어도 +1만 카운트함)
-
-    for(int i = 1; i < len; i++) 
+    int leng = S.length();
+    vector<int> grundyVec;
+    for(int i = 0; i < leng; i++)
     {
-        if((S[i - 1] == 'B' || S[i - 1] == 'W') && S[i] == '.' )
+        if(S[i] == 'B')
         {
-            numOfspaces++;
+            grundyVec.push_back(0);
+            if(i > 0 && S[i - 1] == '.') {grundyVec[grundyVec.size() - 1] += 1;}
+            if(i < leng - 1 && S[i + 1] == '.') {grundyVec[grundyVec.size() - 1] += 1;}
         }
     }
 
-    if(S[len - 1] == '.') {numOfspaces--;}
+    if(S[0] == '.') 
+    {
+        for(int i = 1; i < leng; i++)
+        {
+            if(S[i] == 'B')
+            {
+                grundyVec[0] -= 1;
+                break;
+            }
+            else if(S[i] == 'W')
+            {
+                break;
+            }
+        }
+    }
 
-    if(numOfspaces % 2 == 0) {cout << "Lose";}
+    if(S[leng - 1] == '.') 
+    {
+        for(int i = leng - 2; i > 0; i--)
+        {
+            if(S[i] == 'B')
+            {
+                grundyVec[grundyVec.size() - 1] -= 1;
+                break;
+            }
+            else if(S[i] == 'W')
+            {
+                break;
+            }
+        }
+    }
+
+    int grundy = 0;
+    for(int i = 0; i < grundyVec.size(); i++)
+    {
+        grundy ^= grundyVec[i];
+    }
+
+    if(grundy == 0) {cout << "Lose";}
     else {cout << "Win";}
+
+    
+
 
 }
