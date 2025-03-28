@@ -1,1 +1,1 @@
-print("안녕 세계야")
+print("asdf")
