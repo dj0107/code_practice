@@ -2,8 +2,8 @@
 using namespace std;
 
 int main() {
+    int* p;
     int a = 3;
-    int b = 1;
-    int c = a ^ b;
-    cout << c;
+    p = &a;
+    cout << *p << endl;
 }
