@@ -21,7 +21,7 @@ for i in range(n):
                 to_traverse.append([i + 1, j])
             if j > 0 and chessboard[i][j - 1] == '.':
                 to_traverse.append([i, j - 1])
-            if j < n - 1 and chessboard[i][j + 1] == '.':
+            if j < m - 1 and chessboard[i][j + 1] == '.':
                 to_traverse.append([i, j + 1])
             to_traverse.append(['c', 'c']) # checkpoint
 
