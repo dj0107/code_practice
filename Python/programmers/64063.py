@@ -1,18 +1,24 @@
-class rangeTree:
-
-    class Node:
-        def __init__(self ,start, end):
-            self.start = start
-            self.end = end
-            self.left = None
-            self.right = None
-            self.parent = None
-
-    def __init__(self):
-        pass
-
+import sys
+sys.setrecursionlimit(100000)
 
 def solution(k, room_number):
-    answer = []
+    parent = {}  
 
+    def find(x):
+        
+        if x not in parent:      
+            return x
+        
+        parent[x] = find(parent[x])
+        return parent[x]
+
+    answer = []
+    for want in room_number:
+        room = find(want)        
+        answer.append(room)
+        parent[room] = find(room + 1)
     return answer
+
+rooms = [1, 10, 1, 10, 1, 10]
+k = 10
+print(solution(k, rooms))
