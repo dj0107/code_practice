@@ -1,3 +1,5 @@
+import random
+import time
 # getter setter 번거로우므로 _으로 그냥 구현
 def isRightmost(n: int) -> bool:
     # 1, 3, 7... 처럼 n+1이 2의 거듭제곱 형태라면 true
@@ -184,12 +186,45 @@ class HeapQ: # min_heap (부모의 키 값 <= 자식의 키 값)
 
 
 if __name__ == '__main__':
-    hq = HeapQ()
-    hq.add(31, 31)
-    hq.add(28, 28)
-    hq.add(44, 44)
-    hq.add(47, 47)
-    hq.add(15,15)
-    hq.add(34,34)
-    for i in range(len(hq)):
-        print(hq.remove_min())
+    # hq = HeapQ()
+    # hq.add(31, 31)
+    # hq.add(28, 28)
+    # hq.add(44, 44)
+    # hq.add(47, 47)
+    # hq.add(15,15)
+    # hq.add(34,34)
+    # for i in range(len(hq)):
+    #     print(hq.remove_min())
+    # f = open('sorttest.txt','w')
+    # for i in range(100000):
+    #     line = str(random.randint(0, 999999)) + '\n'
+    #     f.write(line)
+    # f.close()
+    arr1 = []
+    arr2 = []
+    f = open('sorttest.txt', 'r')
+    for line in f:
+        if line != '':
+            arr1.append(line)
+            arr2.append(line)
+    n = 10000 #len(arr1)
+    f.close()
+    # insertion sort
+    start = time.time()
+    for i in range(n):
+        for j in range(i+1, n):
+            if arr1[i] > arr1[j]:
+                arr1[i], arr1[j] = arr1[j], arr1[i]
+    end = time.time()
+    # print(arr1)
+    print(end - start)
+    
+    start = time.time()
+    arr3 = []
+    pq = HeapQ()
+    for i in range(n):
+        pq.add(arr2[i], 0)
+    for i in range(n):
+        arr3.append(pq.remove_min())
+    end = time.time()
+    print(end - start)
