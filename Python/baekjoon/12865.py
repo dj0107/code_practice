@@ -14,6 +14,8 @@ for i in range(1, n):
         if dp[j][0] + things[i][0] <= k and (dp[i][1] < dp[j][1] + things[i][1] or (dp[j][0] + things[i][0] < dp[i][1] and dp[i][1] == dp[j][1] + things[i][1])):
             dp[i][1] = dp[j][1] + things[i][1]
             dp[i][0] = dp[j][0] + things[i][0]
-
-print(dp[n-1][1])
+ans = 0
+for i in range(n):
+    ans = max(ans, dp[i][1])
+print(ans)
             
