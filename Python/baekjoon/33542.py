@@ -1,9 +1,10 @@
 import sys
+from bisect import bisect_left
 input = sys.stdin.readline
 
 goal, curr = map(int, input().split())# 목표, 현재
 n = int(input())
-INF = float('inf')
+INF = 99999999999
 
 left, right = [], []
 
@@ -14,50 +15,46 @@ for i in range(1, n+1):
 
 left.sort()
 right.sort()
-
+finish = False
 if curr > goal:
     print(-1, -1)
+    finish = True
 ideal = goal - curr + 1
-onehand = False
-for i in range(n):
-    if left[i][0] == ideal and not onehand:
-        onehand = True
-        print(left[i][1], -1)
+cnt = 0
+while not finish and cnt < n:
+    if left[cnt][0] == ideal:
+        print(left[cnt][1], -1)
+        finish = True
+    elif right[cnt][0] == ideal:
+        print(-1, right[cnt][1])
+        finish = True
+    cnt += 1
 
-for i in range(n):
-    if right[i][0] == ideal and not onehand:
-        onehand = True
-        print(-1, right[i][1])
+if not finish:
+    closest = INF
+    myleft = myright = 0
+    
+    for lval, lidx in left:
+        if lval > goal - curr: break
 
-if not onehand:
-    bestl, bestr = 0, 0
-    mostClose = INF
-    for l in left:
         fail = False
-        req = goal - curr - l[0]
-        start = 0
-        end = n - 1
-        while start < end:
-            mid = (start + end) // 2
-            if right[mid][0] > req:
-                end = mid - 1
-            elif right[mid][0] < req:
-                start = mid + 1
-            else:
-                break
-        if mid > 0: mid -= 1
-        cnt = 0
-        while not (right[mid][0] > req and right[mid][1] != l[1]):
-            mid += 1
-            cnt += 1
-            if mid == n or cnt == 3: 
+        reqMin = goal - curr - lval + 1
+        # 이분탐색
+        idx = bisect_left(right, (reqMin, 0))
+        # 찾기 실패한 경우 1: 마지막 인덱스 값을 반환
+        if idx == n:
+            fail = True
+        # 찾기 실패한 경우 2: 마지막인데 겹침
+        elif right[idx][1] == lidx:
+            idx += 1
+            if idx == n:
                 fail = True
-                break
-        if not fail and curr + l[0] + right[mid][0] < mostClose:
-            mostClose = curr + l[0] + right[mid][0]
-            bestl, bestr = l[1], right[mid][1]
+        
+        if (not fail) and right[idx][0] + curr + lval < closest:
+            closest = right[idx][0] + curr + lval
+            myleft, myright = lidx, right[idx][1]
 
-    if mostClose == INF:
+    if myleft == 0 and myright == 0:
         print("No")
     else:
-        print(bestl, bestr)
+        print(myleft, myright)    
