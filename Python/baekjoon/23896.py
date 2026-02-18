@@ -21,3 +21,4 @@ for tt in range(1, t+1):
             dp[i][j] = curmax
 
     print(f"Case #{tt}: {dp[p][n]}")
+
