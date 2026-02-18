@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int compare(char *a,char *b) {
+    int i = 0;
+    int matched = 1;
+    while (b[i]) {
+        if (!a[i]) {
+            matched = 0;
+            break;
+        }
+        if (b[i] != a[i]) {
+            matched = 0;
+            break;
+        }
+        i++;
+    }
+    if (a[i]) {matched = 0;}
+    return matched;
+
+}
+struct name {
+    char first[99];
+    char last[];
+};
+
+struct human {
+    int age;
+    float height;
+    float kg;
+    struct name myname;
+};
+
+
+int main() {
+    struct human sdj;
+    sdj.age = 25;
+    sdj.height = 175;
+    sdj.kg = 85;
+    sdj.myname.first = "Shin";
+    printf("Age: %d\n", sdj.age);
+    printf("Height: %f\n", sdj.height);
+    printf("Weight: %f\n", sdj.kg);
+    printf("Name: %s\n", sdj.name);
+    char *sdd;
+    sdd = "asdf";
+    printf("%s", sdd);
+    return 0;
+}
+
