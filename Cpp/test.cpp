@@ -1,16 +1,25 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include <cmath>
-using namespace std;
+#include <random>
 
-int ki(int a[][3]) {
-    return a[0][2];
+
+inline void init_vec(float *a, int N) {
+        /****************/
+        /* TODO: put your own parallelized code here */
+        /* You don't have to parallelize all of your code - it's up to you. */
+
+        srand(0);
+        for (int i = 0; i < N; i++) {
+                a[i] = (float)(rand() % 2);
+                std::cout << a[i] << std::endl;
+        }
+        
+        /****************/
 }
 
 int main() {
-    int arr[1][3] = {0, 1, 2};
-    cout << ki(arr);
-    
+    float *a = new float[200];
+    init_vec(a, 200);
+
     return 0;
 }
